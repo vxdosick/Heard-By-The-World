@@ -1,16 +1,12 @@
 <template>
-    <div class="wrapper">
-      <HomePage/>
-    </div>
+    <router-view></router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HomePage from './views/HomePage.vue'
 
 export default defineComponent({
   name: 'App',
-  components: { HomePage },
   props: {
   },
   data() {

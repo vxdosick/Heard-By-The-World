@@ -1,11 +1,12 @@
 <template>
-    <button @click="clickFunction" :style="buttonStyle" class="button__general button__text">
+    <component :is="tag" v-bind="to ? { to } : {}" @click="clickFunction" :style="buttonStyle" class="button__general button__text">
         <slot></slot>
-    </button>
+    </component>
 </template>
 
 <script lang="ts">
     import { computed, defineComponent, PropType } from 'vue'
+import { RouterLink } from 'vue-router';
 
     export default defineComponent({
         name: 'ButtonGeneral',
@@ -14,13 +15,19 @@
                 type: String as PropType<string>,
                 required: false,
                 default: '10px 50px'
+            },
+            to: {
+                type: String as PropType<string>,
+                required: false,
+                default: null
             }
         },
         setup(props) {
             const buttonStyle = computed(() => ({
                 padding: props.padding
             }))
-            return {buttonStyle}
+            const tag = computed(() => (props.to ? RouterLink : 'button'))
+            return {buttonStyle, tag}
         },
         methods: {
             clickFunction() {
