@@ -1,0 +1,47 @@
+<template>
+    <button @click="clickFunction" :style="buttonStyle" class="button__another button__text">
+        <slot></slot>
+    </button>
+</template>
+
+<script lang="ts">
+    import { defineComponent, PropType, computed } from 'vue'
+
+    export default defineComponent({
+        name: 'ButtonAnother',
+        props: {
+            padding: {
+                type: String as PropType<string>,
+                required: false,
+                default: '10px 50px'
+            }
+        },
+        setup(props) {
+            const buttonStyle = computed(()=>({
+                padding: props.padding
+            }))
+            return {buttonStyle}
+        },
+        methods: {
+            clickFunction() {
+                this.$emit('clickFunction')
+            }
+        }
+    })
+
+</script>
+
+<style scoped lang="scss">
+    .button__another {
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        border: 1px solid black;
+        transition: all 0.5s ease;
+        line-height: 100%;
+        &:hover {
+            background-color: rgb(230, 230, 230);
+            transform: scale(1.07);
+        }
+    }
+</style>
